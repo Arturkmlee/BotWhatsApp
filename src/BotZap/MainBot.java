@@ -80,11 +80,9 @@ public class MainBot {
         driver.get("https://web.whatsapp.com/");
         waitForOpenZap(driver);
 
-        try {
-            while (true) {
-                novaMensagem(driver);
-            }
-        } catch (){}
+        while(true){
+            novaMensagem(driver);
+        }
 
     }
 
