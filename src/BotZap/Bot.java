@@ -1,10 +1,8 @@
 package BotZap;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -69,16 +67,28 @@ public class Bot implements Runnable{
             selecionaHost(driver);
             mandaMensagem(driver, txt);
         } catch (Exception e){
+            Actions acao = new Actions(driver);
             System.out.println("Nao eh uma mensagem");
-            selecionaHost(driver);
-            mandaMensagem(driver, "sticker/emoji/arquivo/video");
+
+            List<WebElement> lista = painelMensagens.findElements(By.xpath("//div[contains(@class,'message-in')]"));
+            acao.moveToElement(lista.get(lista.size() - 1).findElement(By.cssSelector("div[data-testid='msg-container']"))).perform();
+
+            WebElement setinha = driver.findElement(By.xpath("//span[@data-testid='down-context']"));
+            setinha.click();
+
+            WebElement encaminhar = driver.findElement(By.cssSelector("div[aria-label='Encaminhar mensagem']"));
+            encaminhar.click();
+
+            driver.findElement(By.cssSelector("span[data-testid='forward']")).click();
+            driver.findElement(By.cssSelector("div[class='_2nY6U vq6sj _2OR6D'] span[title='TesteZap']")).click();
+            novaMensagem(driver);
         }
     }
 
 
     public void run(){
-//        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\artur.lee\\Documents\\Selenium\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\artur.lee\\Documents\\Selenium\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://web.whatsapp.com/");
