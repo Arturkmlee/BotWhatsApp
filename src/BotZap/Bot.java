@@ -81,14 +81,15 @@ public class Bot implements Runnable{
 
             driver.findElement(By.cssSelector("span[data-testid='forward']")).click();
             driver.findElement(By.cssSelector("div[class='_2nY6U vq6sj _2OR6D'] span[title='TesteZap']")).click();
+            driver.findElement(By.cssSelector(".oyWr7")).click();
             novaMensagem(driver);
         }
     }
 
 
     public void run(){
-        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
-//        System.setProperty("webdriver.chrome.driver", "C:\\Users\\artur.lee\\Documents\\Selenium\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\artur.lee\\Documents\\Selenium\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://web.whatsapp.com/");
